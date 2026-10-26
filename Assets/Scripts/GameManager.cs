@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
         finalScore.text = "Final Score: " + score;
         finalCombo.text = "Final Combo: " + combo;
+        
     }
 }
 
