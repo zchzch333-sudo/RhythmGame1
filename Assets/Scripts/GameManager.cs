@@ -13,20 +13,23 @@ public class GameManager : MonoBehaviour
     public GameObject resultPanel;
     public TMP_Text finalScore;
     public TMP_Text finalCombo;
+    public GameObject hitEffectPrefab;
 
-    public void Judge(float distance)
+    public void Judge(float distance, Vector3 hitPosition)
     {
         if (distance <= 0.2f)
         {
             score += 1000;
             combo++;
             judgmentText.text = "PERFECT";
+            Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
         }
         else if (distance <= 0.5f)
         {
             score += 500;
             combo++;
             judgmentText.text = "GOOD";
+            Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
         }
         else
         {

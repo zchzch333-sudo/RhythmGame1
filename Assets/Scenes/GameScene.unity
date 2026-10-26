@@ -1915,6 +1915,7 @@ MonoBehaviour:
   resultPanel: {fileID: 1506536397}
   finalScore: {fileID: 411292461}
   finalCombo: {fileID: 2030211815}
+  hitEffectPrefab: {fileID: 6167796146454730024, guid: ea5cc8728f084c941abf211a8f00fe73, type: 3}
 --- !u!1 &1960242962
 GameObject:
   m_ObjectHideFlags: 0

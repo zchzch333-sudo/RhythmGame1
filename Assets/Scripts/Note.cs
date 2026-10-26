@@ -26,7 +26,7 @@ public class Note : MonoBehaviour
         {
             float distance = Mathf.Abs(transform.position.x - paddle.transform.position.x);
 
-            gameManager.Judge(distance);
+            gameManager.Judge(distance, transform.position);
 
             Destroy(gameObject);
         }

@@ -70,7 +70,7 @@ public class SlideNote : MonoBehaviour
                     transform.position.x - paddle.transform.position.x
                 );
 
-                gameManager.Judge(distance);
+                gameManager.Judge(distance, transform.position);
             }
 
             if (timer >= slideDuration)
