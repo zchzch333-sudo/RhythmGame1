@@ -13,8 +13,14 @@ public class GameManager : MonoBehaviour
     public GameObject resultPanel;
     public TMP_Text finalScore;
     public TMP_Text finalCombo;
+    public TMP_Text highScoreText;
     public GameObject hitEffectPrefab;
+    public int highScore = 0;
 
+    void Start()
+    {
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+    }
     public void Judge(float distance, Vector3 hitPosition)
     {
         if (distance <= 0.2f)
@@ -40,13 +46,22 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + score;
         comboText.text = combo + "Combo";
     }
+    
     public void EndGame()
     {
+        if (score > highScore)
+        {
+            highScore = score;
+            
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+        }
         resultPanel.SetActive(true);
 
         finalScore.text = "Final Score: " + score;
         finalCombo.text = "Final Combo: " + combo;
-        
+        highScoreText.text = "High Score:" + highScore;
+
     }
 }
 
