@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text finalCombo;
     public TMP_Text highScoreText;
     public GameObject hitEffectPrefab;
+    public Animator comboAnimator;
     public int highScore = 0;
 
     void Start()
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
         {
             score += 1000;
             combo++;
+            comboAnimator.Play("Combo pop", 0, 0f);
             judgmentText.text = "PERFECT";
             Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
         }
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         {
             score += 500;
             combo++;
+            comboAnimator.Play("Combo pop", 0, 0f);
             judgmentText.text = "GOOD";
             Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
         }
