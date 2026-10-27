@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
+        scoreText.text = score.ToString("D6");
     }
     public void Judge(float distance, Vector3 hitPosition)
     {
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
             judgmentText.text = "MISS";
         }
 
-        scoreText.text = "Score: " + score;
+        scoreText.text = score.ToString("D6");
         comboText.text = combo + "Combo";
     }
     
@@ -61,9 +62,9 @@ public class GameManager : MonoBehaviour
         }
         resultPanel.SetActive(true);
 
-        finalScore.text = "Final Score: " + score;
+        finalScore.text = "Final Score: " + score.ToString("D6");
         finalCombo.text = "Final Combo: " + combo;
-        highScoreText.text = "High Score:" + highScore;
+        highScoreText.text = "High Score:" + highScore.ToString("D6");
 
     }
 }
