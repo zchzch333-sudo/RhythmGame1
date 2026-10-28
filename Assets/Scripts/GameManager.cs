@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,14 +15,35 @@ public class GameManager : MonoBehaviour
     public TMP_Text finalScore;
     public TMP_Text finalCombo;
     public TMP_Text highScoreText;
+
+    public TMP_Text currentAccuracyText;
+    public TMP_Text finalAccuracyText;
+
     public GameObject hitEffectPrefab;
     public Animator comboAnimator;
     public int highScore = 0;
 
+    // Accuracy
+    public int perfectCount = 0;
+    public int goodCount = 0;
+    public int missCount = 0;
+
+    // Grade Images
+    public Image currentGradeImage;
+    public Image finalGradeImage;
+
+    public Sprite gradeF;
+    public Sprite gradeC;
+    public Sprite gradeB;
+    public Sprite gradeA;
+    public Sprite gradeS;
+    public int totalNotes = 239;
     void Start()
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         scoreText.text = score.ToString("D6");
+        currentGradeImage.gameObject.SetActive(false);
+        currentAccuracyText.text = "Accuracy: 0.0%";
     }
     public void Judge(float distance, Vector3 hitPosition)
     {
@@ -29,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             score += 1000;
             combo++;
+            perfectCount++;
             comboAnimator.Play("Combo pop", 0, 0f);
             judgmentText.text = "PERFECT";
             Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
@@ -37,6 +60,7 @@ public class GameManager : MonoBehaviour
         {
             score += 500;
             combo++;
+            goodCount++;
             comboAnimator.Play("Combo pop", 0, 0f);
             judgmentText.text = "GOOD";
             Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
@@ -45,12 +69,49 @@ public class GameManager : MonoBehaviour
         {
             combo = 0;
             judgmentText.text = "MISS";
+            missCount++;
         }
 
         scoreText.text = score.ToString("D6");
-        comboText.text = combo + "Combo";
+        comboText.text = combo.ToString();
+        UpdateGrade();
     }
-    
+    void UpdateGrade()
+    {
+        if (totalNotes <= 0)
+        {
+            return;
+        }
+
+        float accuracy = (perfectCount + goodCount * 0.7f) / totalNotes * 100f;
+        currentAccuracyText.text = "Accuracy: " + accuracy.ToString("F1") + "%";
+
+        Sprite grade;
+
+        if (accuracy >= 95f)
+        {
+            grade = gradeS;
+        }
+        else if (accuracy >= 85f)
+        {
+            grade = gradeA;
+        }
+        else if (accuracy >= 70f)
+        {
+            grade = gradeB;
+        }
+        else if (accuracy >= 50f)
+        {
+            grade = gradeC;
+        }
+        else
+        {
+            grade = gradeF;
+        }
+
+        currentGradeImage.sprite = grade;
+        currentGradeImage.gameObject.SetActive(true);
+    }
     public void EndGame()
     {
         if (score > highScore)
@@ -65,7 +126,8 @@ public class GameManager : MonoBehaviour
         finalScore.text = "Final Score: " + score.ToString("D6");
         finalCombo.text = "Final Combo: " + combo;
         highScoreText.text = "High Score:" + highScore.ToString("D6");
-
+        finalAccuracyText.text = currentAccuracyText.text;
+        finalGradeImage.sprite = currentGradeImage.sprite;
     }
 }
 
