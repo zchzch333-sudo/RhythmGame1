@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject hitEffectPrefab;
     public Animator comboAnimator;
     public int highScore = 0;
+    public string highScoreKey = "Song1HighScore";
 
     // Accuracy
     public int perfectCount = 0;
@@ -40,10 +41,10 @@ public class GameManager : MonoBehaviour
     public int totalNotes = 239;
     void Start()
     {
-        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         scoreText.text = score.ToString("D6");
         currentGradeImage.gameObject.SetActive(false);
-        currentAccuracyText.text = "Accuracy: 0.0%";
+        currentAccuracyText.text = "0.0%";
     }
     public void Judge(float distance, Vector3 hitPosition)
     {
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
 
         float accuracy = (perfectCount + goodCount * 0.7f) / totalNotes * 100f;
-        currentAccuracyText.text = "Accuracy: " + accuracy.ToString("F1") + "%";
+        currentAccuracyText.text = accuracy.ToString("F1") + "%";
 
         Sprite grade;
 
@@ -117,15 +118,15 @@ public class GameManager : MonoBehaviour
         if (score > highScore)
         {
             highScore = score;
-            
-            PlayerPrefs.SetInt("HighScore", highScore);
+
+            PlayerPrefs.SetInt(highScoreKey, highScore);
             PlayerPrefs.Save();
         }
         resultPanel.SetActive(true);
 
-        finalScore.text = "Final Score: " + score.ToString("D6");
+        finalScore.text = score.ToString("D6");
         finalCombo.text = "Final Combo: " + combo;
-        highScoreText.text = "High Score:" + highScore.ToString("D6");
+        highScoreText.text = highScore.ToString("D6");
         finalAccuracyText.text = currentAccuracyText.text;
         finalGradeImage.sprite = currentGradeImage.sprite;
     }
