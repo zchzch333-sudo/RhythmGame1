@@ -8,6 +8,8 @@ public class HoverToStart : MonoBehaviour,
 {
     public Image progressCircle;
     public float hoverTime = 2f;
+    public GameObject greenPanel;
+    public GameObject pinkPanel;
 
     private float timer = 0f;
     private bool hovering = false;
@@ -22,7 +24,10 @@ public class HoverToStart : MonoBehaviour,
 
             if (timer >= hoverTime)
             {
-                SceneManager.LoadScene("GameScene");
+                hovering = false;
+                greenPanel.SetActive(true);
+                pinkPanel.SetActive(true);
+                gameObject.SetActive(false);
             }
         }
     }
