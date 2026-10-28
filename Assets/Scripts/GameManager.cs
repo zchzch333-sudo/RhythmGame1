@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     public TMP_Text judgmentText;
     public GameObject resultPanel;
     public TMP_Text finalScore;
-    public TMP_Text finalCombo;
     public TMP_Text highScoreText;
 
     public TMP_Text currentAccuracyText;
@@ -125,7 +124,6 @@ public class GameManager : MonoBehaviour
         resultPanel.SetActive(true);
 
         finalScore.text = score.ToString("D6");
-        finalCombo.text = "Final Combo: " + combo;
         highScoreText.text = highScore.ToString("D6");
         finalAccuracyText.text = currentAccuracyText.text;
         finalGradeImage.sprite = currentGradeImage.sprite;
